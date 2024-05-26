@@ -27,13 +27,13 @@ class PostController extends Controller
         $post->save();
         dd($post);
     }
-    public function read(Request $r){
+    public function read(Request $request){
         $post = new Post();
         //$posts = $post->where();
         $posts = $post->find(1);//retorna o dado de id=1
         return $posts;
     }
-    public function all(Request $r){
+    public function all(Request $request){
         $posts = Post::all();//Para todos os posts
         //É EXATAMENTE IGUAL A
         /*
@@ -41,5 +41,26 @@ class PostController extends Controller
         $posts = $post->all();//Para todos os posts
         */
         return $posts;
+    }
+    public function update(Request $request){
+        //Para selecionar vários itens
+        $posts = Post::where('id','>',1)->update([
+            'author'=>"Professor João",
+            'title'=>"Alterado"
+        ]);
+        /*
+        $post = Post::find(1);//seleciona o post
+        $post->title = 'Meu post atualizado';//Atualiza o post, mas não salva
+        $post->save();//Salva o post atualizado
+        */
+        return $posts;
+    }
+    public function delete(Request $request){
+        $post = Post::find(6);
+        if($post){
+           return $post->delete();
+        }
+
+        return 'Não existe post com esse id';
     }
 }
