@@ -27,4 +27,19 @@ class PostController extends Controller
         $post->save();
         dd($post);
     }
+    public function read(Request $r){
+        $post = new Post();
+        //$posts = $post->where();
+        $posts = $post->find(1);//retorna o dado de id=1
+        return $posts;
+    }
+    public function all(Request $r){
+        $posts = Post::all();//Para todos os posts
+        //É EXATAMENTE IGUAL A
+        /*
+        $post = new Post();
+        $posts = $post->all();//Para todos os posts
+        */
+        return $posts;
+    }
 }
